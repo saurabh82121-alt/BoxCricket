@@ -1,81 +1,106 @@
-Build an Android application (Kotlin + Jetpack Compose, MVVM architecture, Repository pattern) for managing Box Cricket matches.
+# 🏏 Box Cricket Match Manager
 
-Functional Requirements
+An **Android application** built with **Kotlin + Jetpack Compose**, following **MVVM architecture** and **Repository pattern**, to manage and track **Box Cricket matches** with scoring, player stats, and leaderboards.
 
-Match Setup
+---
 
-Screen to create a new match with:
+## ✨ Functional Requirements
 
-Match Name, Date, Place
+### 🏟️ Match Setup
+- Create a new match with:
+  - Match Name, Date, Place
+  - Number of overs (configurable)
+  - Rules: max overs per bowler, wide/no-ball extra run value
 
-Number of overs (configurable)
+### 👥 Team & Player Management
+- Create teams
+- Add players to teams with:
+  - Name, Photo, Mobile number, Role (Batsman/Bowler/All-rounder)
+- Edit/update player profiles anytime
 
-Rules: max overs per bowler, wide/no-ball extra run value
+### 🎮 Match Flow
+- Start the match → **Live Score Tracking screen**
+- Track and update:
+  - Runs, 4s, 6s per player
+  - Run-outs, catches, wickets per bowler/fielder
+- Auto change **bowler/batsman** after each over (manual override available)
+- Mark a player as **out** and record bowler against dismissal
+- Allow **mid-match player edits**
 
-Team & Player Management
+### 📊 Scoring & Leaderboard
+- Display **overall team score** (runs, wickets, overs)
+- Display **individual player stats**
+- Generate **leaderboard with MVP points** (performance-based)
+- **Role-based access** → associate players can view leaderboard
 
-Create teams
+### 💾 Data Storage & Sync
+- Use **MongoDB (Remote DB)** for:
+  - Matches, Teams, Players, Scores, Leaderboards
+- Provide REST APIs:
+  - `POST /match` → Create match
+  - `PUT /match/:id` → Update match
+  - `DELETE /match/:id` → Delete match
+  - `GET /match/:id` → Fetch match details
+- **Offline Mode**:
+  - Store data locally (Room/SQLite) if no internet
+  - Sync with MongoDB when online
+  - Remove local copy once synced
 
-Add players to teams (fields: name, photo, mobile number, role [batsman/bowler/all-rounder])
+### 🎨 UI/UX
+- Jetpack Compose UI with **Material3 Design**
+- Beautiful icons for **Batsman, Bowler, Fielder, App logo**
+- Easy navigation:  
+  `Match Setup → Team Creation → Live Match → Leaderboard`
 
-Edit/update player profile anytime
+---
 
-Match Flow
+## 🛠️ Technical Requirements
 
-Start the match → live score tracking screen
+- **Android Client**:  
+  Kotlin, Jetpack Compose, MVVM, Room DB (offline), Retrofit (API calls)  
 
-Track and update:
+- **Backend**:  
+  Node.js + Express (or Java Spring Boot) with MongoDB Atlas  
 
-Runs, 4s, 6s per player
+- **Sync Logic**:  
+  Background worker (**WorkManager**) for syncing local DB with remote MongoDB  
 
-Run-outs, catches, wickets per bowler/fielder
+- **Code Style**:  
+  Clean architecture, modular, well-commented, production-ready  
 
-After each over → automatically change bowler/batsman (with manual override option)
+---
 
-Mark a player as out and record bowler against dismissal
+## 📂 Expected Output
 
-Allow mid-match player edits
+### 📱 Android Project Structure
+ui/ # Jetpack Compose screens
+viewmodel/ # MVVM ViewModels
+repository/ # Data access layer
+model/ # Data classes (Match, Team, Player, Score, Leaderboard)
+db/ # Room entities + DAO for offline storage
+network/ # Retrofit API interfaces for backend
 
-Scoring & Leaderboard
 
-Display overall team score (runs, wickets, overs)
+### 🌐 Backend Project
+- Express or Spring Boot app
+- MongoDB schema for Match, Team, Player, Score
+- REST endpoints for CRUD operations
+- Offline sync support API
 
-Display individual player stats
+### 🖼️ Sample UI Screens
+- Match creation form  
+- Team & Player management  
+- Live scoreboard  
+- Leaderboard  
 
-Generate leaderboard with MVP points (performance-based)
+---
 
-Role-based access → associate players can only see leaderboard
+## 🚀 Roadmap
+- [ ] Implement Android client with Jetpack Compose  
+- [ ] Build backend APIs with Node.js/Express or Spring Boot  
+- [ ] MongoDB schema + Atlas integration  
+- [ ] Offline mode with Room + WorkManager sync  
+- [ ] Role-based access & Leaderboard MVP system  
+- [ ] UI polish with custom icons & Material3  
 
-Data Storage & Sync
-
-Use MongoDB (Remote DB) for storing matches, teams, players, scores, leaderboards
-
-Provide REST APIs (Node.js/Express or Java Spring Boot) for:
-
-POST /match (create match)
-
-PUT /match/:id (update match)
-
-DELETE /match/:id (delete match)
-
-GET /match/:id (fetch match details)
-
-Offline mode: store data locally (Room/SQLite) if no internet → sync to MongoDB when online → remove local copy once synced
-
-UI/UX
-
-Use Jetpack Compose UI with Material3 design
-
-Beautiful icons for batsman, bowler, fielder, and app logo
-
-Easy navigation: Match Setup → Team Creation → Live Match → Leaderboard
-
-Technical Requirements
-
-Android Client: Kotlin, Jetpack Compose, MVVM, Room DB (for offline), Retrofit for API calls
-
-Backend: Node.js + Express (or Spring Boot if Java) with MongoDB Atlas
-
-Sync Logic: Background worker (WorkManager) to sync local DB with remote MongoDB when network available
-
-Code Style: Clean architecture, modular, well-commented, production-ready
+---
